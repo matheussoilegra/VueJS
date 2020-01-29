@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aula 03 - Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1 v-if="status">
+      {{ titulo }}
+    </h1>
+    <!-- se "status" = true, então vai imprimir "titulo" -->
+    <!-- se "status" = false, então vai imprimir "titulo" -->
+    <!-- se "status" = false, então não coloca h1 no código -->
+
+    <div v-else>Não existe título</div>
+    <!-- se "status" = false (v-if = false), então imprime essa div -->
+    <!-- se "status" = true (v-if = true), então não imprime essa div e imprime o "título"-->
+
+    <p v-show="texto">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non quaerat quod nemo sapiente ullam corrupti,
+      cupiditate aperiam modi itaque illum sed deleniti laboriosam doloremque iste, odio ex, dolorum explicabo fugit?
+    </p>
+    <!-- se "texto" = true, então vai imprimir esse parágrafo -->
+    <!-- se "texto" = false, então vai imprimir esse parágrafo -->
+    <!-- se "texto" = "false", então coloca o parágrafo no código como display: none -->
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        status: false,
+        titulo: "Aula 03 - Vue.js",
+        texto: false
+      }
+    });
+  </script>
+</body>
