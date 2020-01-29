@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aula 04 - Vuejs</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>
+      {{ titulo }}
+    </h1>
+    <ul>
+      <li v-for="item in linguagens">{{ item.nome }}</li>
+      <!-- a variável interna "item" vai percorrer cada item dentro da variável "linguagens" -->
+    </ul>
+
+    <ul>
+      <li v-for="(item, index) in linguagens">{{ index }} - {{ item.nome }}</li>
+      <!-- a variável interna "item" vai percorrer cada item dentro da variável "linguagens" -->
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        titulo: 'Aula 04 - Vuejs',
+        linguagens: [
+          { nome: 'JavaScript' },
+          { nome: 'PHP' },
+          { nome: 'C#' },
+          { nome: 'Java' },
+          { nome: 'Python' }
+        ]
+      }
+    });
+  </script>
+</body>
+
+</html>
