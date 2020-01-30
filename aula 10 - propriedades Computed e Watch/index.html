@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aula 10 - Vuejs</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>
+      {{ titulo }}
+    </h1>
+    {{ fullName }}
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        titulo: 'Aula 10 - Vue.js',
+        firstName: '',
+        lastName: '',
+        // fullName: ''
+      },
+      computed: {
+        fullName() {
+          return this.firstName + ' ' + this.lastName;
+        }
+      },
+      watch: {
+        // firstName(newValue) {
+        //   this.fullName = newValue + ' ' + this.lastName;
+        // },
+        // lastName(newValue) {
+        //   this.fullName = this.firstName + ' ' + newValue;
+        // }
+        firstName(newValue) {
+          this.updateUser();
+        }
+      },
+      methods: {
+        updateUser() {
+          console.log('Usuário atualizado!');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
