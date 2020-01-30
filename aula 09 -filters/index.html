@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aula 09 - Vuejs</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <h1>
+      {{ titulo }}
+    </h1>
+    <ul>
+      <li v-for="usuario in usuarios">{{ usuario.nome | truncate('5') }}</li>
+    </ul>
+    <form action="http://google.com">
+      <button type="submit" class="btn btn-primary" @click.prevent.stop="enviar()">Enviar</button>
+      <!-- Or use <button type="submit" class="btn btn-primary" v-on:click.prevent.stop="enviar()">Enviar</button> -->
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        titulo: 'Aula 09 - Vue.js',
+        usuarios: [
+          { nome: 'Josh Thor' },
+          { nome: 'Lizza Fincher' },
+          { nome: 'Mary Louise' },
+        ]
+      },
+      filters: {
+        toUpperCase(str) {
+          return str.toUpperCase();
+        },
+        truncate(str, length) {
+          var output = str;
+          if (output.length > length) {
+            output = str.substring(0, length) + ' ...'
+          }
+          return output;
+        }
+      },
+      methods: {
+        enviar() {
+          alert('Enviado!');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
