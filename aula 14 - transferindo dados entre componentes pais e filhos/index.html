@@ -5,87 +5,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Aula 14 - Vuejs</title>
+  <title>Aula 15 - Vuejs</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
 <body>
-  <!-- Aqui são chamados os componentes -->
   <div id="app">
-    <br><br><br><br><br><br>
-    <nav-bar></nav-bar>
-    <br><br>
-    <menu-bar :items="[ {label: 'A empresa'}, {label: 'Serviços'} ]"></menu-bar>
+    <br><br><br><br><br>
+    <div class="container">
+      <input-form></input-form>
+      <br>
+      <my-list></my-list>
+    </div>
   </div>
-
-  <!-- Em "template" é desenvolvido o HTML -->
-  <template id="nav">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <menu-bar :items="topNav" @emit-click="getLink"></menu-bar>
-
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+  <template id="form">
+    <div class="card">
+      <div class="card-block">
+        <div class="form-group">
+          <label for="">Título</label>
+          <input v-model="title" type="text" class="form-control">
+        </div>
+        <button @click.stop.prevent="submit()" class="btn btn-primary">ENVIAR</button>
       </div>
-    </nav>
   </template>
-
-  <template id='menu'>
-    <ul class="navbar-nav mr-auto">
-      <li v-for="(item, index) in items" class="nav-item">
-        <a @click.stop.prevent="emitClick(index)" class="nav-link" href="#">{{ item.label }}</a>
-      </li>
+  <template id="list">
+    <ul class="list-group">
+      <li v-for="item in list" class="list-group-item">{{item.title}}</li>
     </ul>
   </template>
-
   <script src="https://unpkg.com/vue"></script>
-
   <script>
-    Vue.component('nav-bar', {
-      template: '#nav',
+    Vue.component('input-form', {
+      template: '#form',
       data() {
         return {
-          topNav: [{ label: 'Home' }, { label: 'Link' }, { label: 'Disabled' }]
+          title: ''
         }
       },
       methods: {
-        getLink(index) {
-          alert(this.topNav[index].label)
+        submit() {
+          // eventBus.$emit('submit', this.title);
+          this.$eventHub.$emit('submit', this.title);
         }
       }
     });
-
-    // Aqui são criados os componentes
-    Vue.component('menu-bar', {
-      template: '#menu',
-      // props: ['items'],
-      // Pai -> Filho: props
-      props: {
-        items: {
-          type: Array,
-          required: true,
-        }
+    Vue.component('my-list', {
+      template: '#list',
+      created() {
+        var vm = this;
+        // eventBus.$on('submit', function (title) {
+        this.$eventHub.$on('submit', function (title) {
+          if (title) {
+            vm.list.push({ title: title })
+          }
+        });
       },
-      // Filho ->  Pai: emit
-      methods: {
-        emitClick(index) {
-          this.$emit('emit-click', index)
+      data() {
+        return {
+          list: [
+            { title: 'Ir a feira' },
+          ]
         }
       }
     });
-
+    // var eventBus = new Vue();
+    Vue.prototype.$eventHub = new Vue();
     var app = new Vue({
       el: '#app',
       data: {
-        titulo: 'Aula 12 - Vue.js',
+        titulo: 'Aula 15 - Vue.js',
       },
     });
   </script>
