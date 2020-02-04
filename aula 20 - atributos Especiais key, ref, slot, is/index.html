@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aula 20 - Vuejs</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <br><br><br>
+
+    <div class="container">
+      <h1 ref="title">{{ titulo }}</h1>
+
+      <componente :is="transformers"></componente>
+      <!-- se torna  <transformers :is="transformers"></transformers> -->
+
+      <!-- <transformers v-if="movie == 'transformers'"></transformers>
+      <game-of-thornes v-if="movie == 'game-of-thrones'"></game-of-thornes> -->
+
+      <ul ref="users">
+        <li v-for="(item, index) in users" :key="item.name">{{ item.name }}
+          <a @click.stop.prevent="remove(index)"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <template id="transformers">
+    <div>
+      <h4>Transformers</h4>
+      <ul>
+        <li v-for="item in transformers">{{ item.name }}</li>
+      </ul>
+    </div>
+  </template>
+
+  <template id="gameOfThrones"></template>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+  <script>
+    Vue.component('transformers', {
+      template: "#transformers",
+    });
+
+    Vue.component('game-of-thrones', {
+      template: "#gameOfThrones"
+    });
+
+    var app = new Vue({
+      el: "#app",
+
+      mounted() {
+        console.log(this.$refs.users);
+      },
+
+      data: {
+        titulo: "Aula 20 - VueJS",
+        users: [
+          { name: 'Emma' },
+          { name: 'Sophia' },
+          { name: 'Isabella' },
+        ],
+        movie: 'transformers',
+      },
+
+      methods: {
+        remove(index) {
+          this.users.splice(index, 1);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
