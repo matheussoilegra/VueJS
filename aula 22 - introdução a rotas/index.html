@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aula 22 - Vuejs</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <style>
+    /* fade = <transition name="fade"> */
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity .5s;
+    }
+
+    .fade-enter,
+    .fade-leave-to
+
+    /* .fade-leave-active below version 2.1.8 */
+      {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <br><br><br>
+
+    <div class="container">
+      <h1 ref="title">{{ titulo }}</h1>
+      <ul>
+        <li>
+          <router-link to="/transformers">Transformers</router-link>
+        </li>
+        <li>
+          <router-link to="/game-of-thrones">Game of Thrones</router-link>
+        </li>
+      </ul>
+
+      <router-view></router-view>
+    </div>
+  </div>
+
+  <template id="transformers">
+    <div>
+      <h4>Transformers</h4>
+      <ul>
+        <li v-for="item in transformers">{{ item.name }}</li>
+      </ul>
+    </div>
+  </template>
+
+  <template id="gameOfThrones">
+    <div>
+      <h4>Game of Thrones</h4>
+      <ul>
+        <li v-for="item in gameOfThrones">{{ item.name }}</li>
+      </ul>
+    </div>
+  </template>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+  <script>
+    var Transformers = Vue.component('transformers', {
+      template: "#transformers",
+      data() {
+        return {
+          transformers: [
+            { name: 'Optmus Prime' },
+            { name: 'Bumble Bee' },
+            { name: 'Megatron' },
+          ],
+        }
+      }
+    });
+
+    var GameOfThrones = Vue.component('game-of-thrones', {
+      template: "#gameOfThrones",
+      data() {
+        return {
+          gameOfThrones: [
+            { name: 'John Snow' },
+            { name: 'Daenearys Targaryen' },
+            { name: 'Arya Stark' },
+          ],
+        }
+      }
+    });
+
+    var router = new VueRouter({
+      routes: [
+        { path: '/transformers', component: Transformers },
+        { path: '/game-of-thrones', component: GameOfThrones },
+      ]
+    });
+
+    var app = new Vue({
+      el: "#app",
+      router,
+      data: {
+        titulo: "Aula 22 - Vuejs",
+      },
+    });
+  </script>
+</body>
+
+</html>
